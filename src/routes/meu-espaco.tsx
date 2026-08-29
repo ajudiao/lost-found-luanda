@@ -43,8 +43,8 @@ function MyAreaLayout() {
         <Sidebar collapsible="icon">
           <SidebarHeader className="p-4">
             <Link to="/" className="flex items-center gap-2">
-              <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground shrink-0"><MapPin className="h-4 w-4" /></div>
-              <span className="font-display font-bold truncate">Achados.Luanda</span>
+              <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-tr from-red-600 to-rose-500 text-white shadow-md shadow-red-500/20 shrink-0"><MapPin className="h-4 w-4 fill-white/20" /></div>
+              <span className="font-display font-bold truncate">Achados<span className="text-red-500">.</span>Luanda</span>
             </Link>
           </SidebarHeader>
           <SidebarContent>

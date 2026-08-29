@@ -1,4 +1,5 @@
-const API_BASE_URL = "https://lostfound-backend-awq7.onrender.com/api";
+//const API_BASE_URL = "https://lostfound-backend-awq7.onrender.com/api";
+const API_BASE_URL = "http://localhost:7000/api";
 
 function getToken(): string | null {
   try {
@@ -72,12 +73,25 @@ export const api = {
   updateStatus: (id: string, status: string) => request<any>(`/occurrences/${id}/status`, { method: "PATCH", body: JSON.stringify({ status }) }),
   deleteOccurrence: (id: string) => request<any>(`/occurrences/${id}`, { method: "DELETE" }),
 
+  getPublicStats: () => request<{ totalOccurrences: number; resolvedOccurrences: number; totalUsers: number; successRate: string }>("/occurrences/stats/public"),
+
   // Categories & Locations
   getCategories: () => request<string[]>("/categories"),
-  getLocations: () => request<{ municipalities: string[]; neighborhoods: Record<string, string[]> }>("/locations/municipalities"),
+  getLocations: () => request<{ municipalities: string[]; neighborhoods: Record<string, string[]>; fullList?: any[] }>("/locations/municipalities"),
+  createMunicipality: (name: string, neighborhoods: string[]) =>
+    request<any>("/locations/municipalities", { method: "POST", body: JSON.stringify({ name, neighborhoods }) }),
+  updateMunicipality: (id: string, name?: string, neighborhoods?: string[]) =>
+    request<any>(`/locations/municipalities/${id}`, { method: "PUT", body: JSON.stringify({ name, neighborhoods }) }),
+  deleteMunicipality: (id: string) =>
+    request<any>(`/locations/municipalities/${id}`, { method: "DELETE" }),
 
   // User Space & Search Users
   getUserOccurrences: () => request<any[]>("/user/occurrences"),
+  getFavorites: () => request<any[]>("/user/favorites"),
+  getFavoriteIds: () => request<string[]>("/user/favorites/ids"),
+  addFavorite: (occurrenceId: string) => request<any>(`/user/favorites/${occurrenceId}`, { method: "POST" }),
+  removeFavorite: (occurrenceId: string) => request<any>(`/user/favorites/${occurrenceId}`, { method: "DELETE" }),
+
   getNotifications: () => request<any[]>("/user/notifications"),
   markNotificationRead: (id: string) => request<any>(`/user/notifications/${id}/read`, { method: "PATCH" }),
   searchUsers: (q: string) => request<any[]>(`/users/search?q=${encodeURIComponent(q)}`),
