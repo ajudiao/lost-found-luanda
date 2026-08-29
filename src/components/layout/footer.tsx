@@ -124,7 +124,7 @@ export function Footer() {
                   <div className="grid h-7 w-7 place-items-center rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 group-hover:border-primary group-hover:text-primary transition-colors">
                     <Phone className="h-3.5 w-3.5" />
                   </div>
-                  <span className="text-xs">+244 923 000 000</span>
+                  <span className="text-xs">+244 923 100 200</span>
                 </a>
               </li>
               <li className="flex items-center gap-2.5 text-xs text-zinc-400">
@@ -165,12 +165,6 @@ export function Footer() {
         <div className="mt-12 pt-6 border-t border-zinc-900 flex flex-wrap items-center justify-between gap-4 text-xs text-zinc-500">
           <div className="flex items-center gap-2">
             <span>© 2026 Achados Luanda. Todos os direitos reservados.</span>
-          </div>
-
-          <div className="flex items-center gap-1 text-zinc-400">
-            <span>Feito com</span>
-            <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500 animate-pulse" />
-            <span>para a cidade de Luanda 🇦🇴</span>
           </div>
         </div>
       </div>

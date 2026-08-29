@@ -85,10 +85,10 @@ function Index() {
   const recentes = occurrencesList.slice(0, 6);
 
   const stats = [
-    { icon: Package, label: "Ocorrências", value: publicStats?.totalOccurrences ? publicStats.totalOccurrences.toString() : occurrencesList.length > 0 ? occurrencesList.length.toString() : "1.284" },
-    { icon: Sparkles, label: "Recuperados", value: publicStats?.resolvedOccurrences ? publicStats.resolvedOccurrences.toString() : "412" },
-    { icon: Users, label: "Utilizadores", value: publicStats?.totalUsers ? publicStats.totalUsers.toString() : "3.560" },
-    { icon: TrendingUp, label: "Taxa de sucesso", value: publicStats?.successRate || "68%" },
+    { icon: Package, label: "Ocorrências", value: publicStats?.totalOccurrences !== undefined ? publicStats.totalOccurrences.toString() : "0" },
+    { icon: Sparkles, label: "Recuperados", value: publicStats?.resolvedOccurrences !== undefined ? publicStats.resolvedOccurrences.toString() : "0" },
+    { icon: Users, label: "Utilizadores", value: publicStats?.totalUsers !== undefined ? publicStats.totalUsers.toString() : "0" },
+    { icon: TrendingUp, label: "Taxa de sucesso", value: publicStats?.successRate || "0%" },
   ];
 
   // Triplicar lista para movimento fluido e contínuo

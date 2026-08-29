@@ -1,10 +1,12 @@
 import { createFileRoute, Link, useParams, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Calendar, MapPin, Phone, Mail, MessageCircle, Share2, Flag, Sparkles, MessageSquare } from "lucide-react";
+import { ArrowLeft, Calendar, MapPin, Phone, Mail, MessageCircle, Share2, Flag, Sparkles, MessageSquare, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { OccurrenceCard } from "@/components/occurrence-card";
+import { useAuth } from "@/lib/auth";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 
@@ -17,9 +19,11 @@ export const Route = createFileRoute("/ocorrencia/$id")({
 
 function Detail() {
   const { id } = useParams({ from: "/ocorrencia/$id" });
+  const { user } = useAuth();
   const [item, setItem] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [reporting, setReporting] = useState(false);
+  const [updatingStatus, setUpdatingStatus] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,40 +56,62 @@ function Detail() {
     }
   };
 
+  const handleStatusChange = async (newStatus: string) => {
+    if (!item) return;
+    try {
+      setUpdatingStatus(true);
+      await api.updateStatus(item.id, newStatus);
+      toast.success(`Estado alterado para "${newStatus.toUpperCase()}"!`);
+      const updated = await api.getOccurrence(id);
+      setItem(updated);
+    } catch (err: any) {
+      toast.error(err.message || "Erro ao atualizar estado.");
+    } finally {
+      setUpdatingStatus(false);
+    }
+  };
+
   const handleStartChat = async () => {
     if (!item?.userId) return;
+    if (!user) {
+      toast.error("Inicie sessão para enviar mensagens ao autor.");
+      return;
+    }
     try {
       await api.startConversation(item.userId, item.id);
       navigate({ to: "/meu-espaco/mensagens" });
     } catch (err: any) {
-      toast.error(err.message || "Erro ao iniciar conversa no chat.");
+      toast.error(err.message || "Erro ao iniciar conversa.");
     }
   };
 
   if (loading) {
     return (
-      <main className="container-page py-24 text-center">
-        <p className="text-muted-foreground">A carregar detalhes...</p>
+      <main className="container-page py-16 text-center">
+        <p className="text-muted-foreground">A carregar os detalhes da ocorrência...</p>
       </main>
     );
   }
 
   if (!item) {
     return (
-      <main className="container-page py-24 text-center">
+      <main className="container-page py-16 text-center space-y-4">
         <h1 className="text-2xl font-bold">Ocorrência não encontrada</h1>
-        <Button asChild className="mt-4">
-          <Link to="/">Voltar à Página Inicial</Link>
+        <p className="text-muted-foreground">A publicação solicitada não existe ou foi removida.</p>
+        <Button asChild variant="outline">
+          <Link to="/perdidos">Voltar às ocorrências</Link>
         </Button>
       </main>
     );
   }
 
-  const matches = item.matches || [];
+  const isOwnerOrAdmin = user && (user.id === item.userId || user.role === "admin");
   const imageSrc =
     Array.isArray(item.images) && item.images.length > 0
       ? item.images[0]
       : `https://picsum.photos/seed/${encodeURIComponent(item.id)}/800/600`;
+
+  const matches = item.matches || [];
 
   return (
     <main className="container-page py-8 lg:py-12">
@@ -95,6 +121,55 @@ function Detail() {
       >
         <ArrowLeft className="h-4 w-4" /> Voltar
       </Link>
+
+      {/* Author Control Banner */}
+      {isOwnerOrAdmin && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex flex-wrap items-center justify-between gap-4 mb-6 shadow-sm"
+        >
+          <div className="flex items-center gap-3">
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-emerald-500 text-white shrink-0 shadow-sm">
+              <CheckCircle2 className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-emerald-900 dark:text-emerald-200">
+                Gestão da Publicação
+              </p>
+              <p className="text-xs text-emerald-700 dark:text-emerald-400">
+                Estado atual: <strong className="uppercase">{item.status}</strong>
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {item.status !== "resolvido" && (
+              <Button
+                size="sm"
+                disabled={updatingStatus}
+                onClick={() => handleStatusChange("resolvido")}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl gap-1.5 shadow-md"
+              >
+                <CheckCircle2 className="h-4 w-4" /> Marcar como Resolvido / Recuperado
+              </Button>
+            )}
+
+            <Select value={item.status} disabled={updatingStatus} onValueChange={handleStatusChange}>
+              <SelectTrigger className="h-9 w-[130px] text-xs font-semibold rounded-xl border-emerald-500/30 bg-background">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="rounded-xl">
+                <SelectItem value="ativo">🟢 Ativo</SelectItem>
+                <SelectItem value="em_analise">🟡 Em análise</SelectItem>
+                <SelectItem value="resolvido">Resolvido</SelectItem>
+                <SelectItem value="arquivado">📁 Arquivado</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </motion.div>
+      )}
+
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-6">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid gap-2 grid-cols-4">
@@ -109,12 +184,19 @@ function Detail() {
               ))}
           </motion.div>
 
-          <div className="rounded-2xl border border-border p-6 bg-card">
+          <div className="rounded-2xl border border-border p-6 bg-card shadow-sm">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <Badge className="mb-2" variant="outline">
-                  {item.type === "perdido" ? "Perdido" : item.type === "encontrado" ? "Encontrado" : "Aviso"}
-                </Badge>
+                <div className="flex items-center gap-2 mb-2">
+                  <Badge variant="outline" className="font-semibold">
+                    {item.type === "perdido" ? "Perdido" : item.type === "encontrado" ? "Encontrado" : "Aviso"}
+                  </Badge>
+                  {item.status === "resolvido" && (
+                    <Badge className="bg-emerald-500 text-white font-bold">
+                      ✅ Item Recuperado / Resolvido
+                    </Badge>
+                  )}
+                </div>
                 <h1 className="text-3xl font-display font-bold">{item.title}</h1>
                 <p className="text-sm text-muted-foreground mt-1">Publicado por {item.author}</p>
               </div>
@@ -137,7 +219,7 @@ function Detail() {
 
             <div className="mt-6 space-y-4">
               <h3 className="font-semibold text-lg">Descrição</h3>
-              <p className="text-muted-foreground whitespace-pre-line">{item.description}</p>
+              <p className="text-muted-foreground whitespace-pre-line leading-relaxed">{item.description}</p>
 
               {(item.brand || item.model || item.color) && (
                 <div className="mt-4 pt-4 border-t border-border grid grid-cols-3 gap-4 text-sm">
@@ -178,11 +260,11 @@ function Detail() {
 
         {/* Sidebar */}
         <div className="space-y-6">
-          <div className="rounded-2xl border border-border p-6 bg-card space-y-4">
+          <div className="rounded-2xl border border-border p-6 bg-card space-y-4 shadow-sm">
             <h3 className="font-display font-bold text-lg">Localização & Data</h3>
             <div className="space-y-3 text-sm">
               <div className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 text-primary shrink-0" />
+                <MapPin className="h-4 w-4 text-rose-500 fill-rose-500/20 shrink-0" />
                 <span>{item.location}, {item.neighborhood}, {item.municipality}</span>
               </div>
               <div className="flex items-center gap-3">
@@ -192,11 +274,11 @@ function Detail() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border p-6 bg-card space-y-4">
+          <div className="rounded-2xl border border-border p-6 bg-card space-y-4 shadow-sm">
             <h3 className="font-display font-bold text-lg">Contactar Autor</h3>
 
-            {item.userId && (
-              <Button onClick={handleStartChat} className="w-full gap-2">
+            {item.userId && user?.id !== item.userId && (
+              <Button onClick={handleStartChat} className="w-full gap-2 rounded-xl shadow-md">
                 <MessageSquare className="h-4 w-4" /> Enviar Mensagem no Chat
               </Button>
             )}
@@ -210,7 +292,7 @@ function Detail() {
                 )}
                 {item.contact.whatsapp && (
                   <a href={`https://wa.me/${item.contact.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm hover:text-primary">
-                    <MessageCircle className="h-4 w-4 text-success shrink-0" /> WhatsApp: {item.contact.whatsapp}
+                    <MessageCircle className="h-4 w-4 text-emerald-500 shrink-0" /> WhatsApp: {item.contact.whatsapp}
                   </a>
                 )}
                 {item.contact.email && (
