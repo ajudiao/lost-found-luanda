@@ -16,7 +16,7 @@ export function setToken(token: string | null) {
     } else {
       localStorage.removeItem("achados-luanda-token");
     }
-  } catch { }
+  } catch {}
 }
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
@@ -50,9 +50,11 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
 export const api = {
   // Auth
   login: (data: any) => request<any>("/auth/login", { method: "POST", body: JSON.stringify(data) }),
-  register: (data: any) => request<any>("/auth/register", { method: "POST", body: JSON.stringify(data) }),
+  register: (data: any) =>
+    request<any>("/auth/register", { method: "POST", body: JSON.stringify(data) }),
   getMe: () => request<any>("/auth/me"),
-  updateProfile: (formData: FormData) => request<any>("/user/profile", { method: "PUT", body: formData }),
+  updateProfile: (formData: FormData) =>
+    request<any>("/user/profile", { method: "PUT", body: formData }),
 
   // Occurrences
   getOccurrences: (params?: Record<string, string>) => {
@@ -70,18 +72,39 @@ export const api = {
       method: "PUT",
       body: data instanceof FormData ? data : JSON.stringify(data),
     }),
-  updateStatus: (id: string, status: string) => request<any>(`/occurrences/${id}/status`, { method: "PATCH", body: JSON.stringify({ status }) }),
+  updateStatus: (id: string, status: string) =>
+    request<any>(`/occurrences/${id}/status`, {
+      method: "PATCH",
+      body: JSON.stringify({ status }),
+    }),
   deleteOccurrence: (id: string) => request<any>(`/occurrences/${id}`, { method: "DELETE" }),
 
-  getPublicStats: () => request<{ totalOccurrences: number; resolvedOccurrences: number; totalUsers: number; successRate: string }>("/occurrences/stats/public"),
+  getPublicStats: () =>
+    request<{
+      totalOccurrences: number;
+      resolvedOccurrences: number;
+      totalUsers: number;
+      successRate: string;
+    }>("/occurrences/stats/public"),
 
   // Categories & Locations
   getCategories: () => request<string[]>("/categories"),
-  getLocations: () => request<{ municipalities: string[]; neighborhoods: Record<string, string[]>; fullList?: any[] }>("/locations/municipalities"),
+  getLocations: () =>
+    request<{
+      municipalities: string[];
+      neighborhoods: Record<string, string[]>;
+      fullList?: any[];
+    }>("/locations/municipalities"),
   createMunicipality: (name: string, neighborhoods: string[]) =>
-    request<any>("/locations/municipalities", { method: "POST", body: JSON.stringify({ name, neighborhoods }) }),
+    request<any>("/locations/municipalities", {
+      method: "POST",
+      body: JSON.stringify({ name, neighborhoods }),
+    }),
   updateMunicipality: (id: string, name?: string, neighborhoods?: string[]) =>
-    request<any>(`/locations/municipalities/${id}`, { method: "PUT", body: JSON.stringify({ name, neighborhoods }) }),
+    request<any>(`/locations/municipalities/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ name, neighborhoods }),
+    }),
   deleteMunicipality: (id: string) =>
     request<any>(`/locations/municipalities/${id}`, { method: "DELETE" }),
 
@@ -89,19 +112,29 @@ export const api = {
   getUserOccurrences: () => request<any[]>("/user/occurrences"),
   getFavorites: () => request<any[]>("/user/favorites"),
   getFavoriteIds: () => request<string[]>("/user/favorites/ids"),
-  addFavorite: (occurrenceId: string) => request<any>(`/user/favorites/${occurrenceId}`, { method: "POST" }),
-  removeFavorite: (occurrenceId: string) => request<any>(`/user/favorites/${occurrenceId}`, { method: "DELETE" }),
+  addFavorite: (occurrenceId: string) =>
+    request<any>(`/user/favorites/${occurrenceId}`, { method: "POST" }),
+  removeFavorite: (occurrenceId: string) =>
+    request<any>(`/user/favorites/${occurrenceId}`, { method: "DELETE" }),
 
   getNotifications: () => request<any[]>("/user/notifications"),
-  markNotificationRead: (id: string) => request<any>(`/user/notifications/${id}/read`, { method: "PATCH" }),
+  markNotificationRead: (id: string) =>
+    request<any>(`/user/notifications/${id}/read`, { method: "PATCH" }),
   searchUsers: (q: string) => request<any[]>(`/users/search?q=${encodeURIComponent(q)}`),
 
   // Conversations & Chat
   getConversations: () => request<any[]>("/conversations"),
   getMessages: (id: string) => request<any[]>(`/conversations/${id}/messages`),
-  sendMessage: (id: string, text: string) => request<any>(`/conversations/${id}/messages`, { method: "POST", body: JSON.stringify({ text }) }),
+  sendMessage: (id: string, text: string) =>
+    request<any>(`/conversations/${id}/messages`, {
+      method: "POST",
+      body: JSON.stringify({ text }),
+    }),
   startConversation: (targetUserId: string, occurrenceId?: string) =>
-    request<any>("/conversations", { method: "POST", body: JSON.stringify({ targetUserId, occurrenceId }) }),
+    request<any>("/conversations", {
+      method: "POST",
+      body: JSON.stringify({ targetUserId, occurrenceId }),
+    }),
 
   // Reports
   createReport: (occurrenceId: string, reason: string) =>
@@ -111,10 +144,13 @@ export const api = {
   getAdminStats: () => request<any>("/admin/stats"),
   getAdminActivities: () => request<any[]>("/admin/activities"),
   getAdminUsers: () => request<any[]>("/users"),
-  updateUserRole: (id: string, role: string) => request<any>(`/users/${id}/role`, { method: "PATCH", body: JSON.stringify({ role }) }),
+  updateUserRole: (id: string, role: string) =>
+    request<any>(`/users/${id}/role`, { method: "PATCH", body: JSON.stringify({ role }) }),
   deleteUser: (id: string) => request<any>(`/users/${id}`, { method: "DELETE" }),
   getAdminReports: () => request<any[]>("/admin/reports"),
-  resolveReport: (id: string, action: string) => request<any>(`/admin/reports/${id}`, { method: "PATCH", body: JSON.stringify({ action }) }),
+  resolveReport: (id: string, action: string) =>
+    request<any>(`/admin/reports/${id}`, { method: "PATCH", body: JSON.stringify({ action }) }),
   getAdminSettings: () => request<any>("/admin/settings"),
-  updateAdminSettings: (data: any) => request<any>("/admin/settings", { method: "PUT", body: JSON.stringify(data) }),
+  updateAdminSettings: (data: any) =>
+    request<any>("/admin/settings", { method: "PUT", body: JSON.stringify(data) }),
 };

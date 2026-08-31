@@ -4,7 +4,14 @@ import { Search, Shield, User as UserIcon, Trash2, Database } from "lucide-react
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
@@ -67,9 +74,14 @@ function AdminUtilizadores() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-display font-bold flex items-center gap-2">
-          Utilizadores <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20"><Database className="h-3 w-3 mr-1" /> NeonDB API</Badge>
+          Utilizadores{" "}
+          <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+            <Database className="h-3 w-3 mr-1" /> NeonDB API
+          </Badge>
         </h1>
-        <p className="text-sm text-muted-foreground">Gerir contas e permissões em tempo real na base de dados.</p>
+        <p className="text-sm text-muted-foreground">
+          Gerir contas e permissões em tempo real na base de dados.
+        </p>
       </div>
 
       <div className="relative max-w-md">
@@ -117,7 +129,9 @@ function AdminUtilizadores() {
                       </Avatar>
                       <div>
                         <span className="font-medium block">{u.name}</span>
-                        <span className="font-mono text-[10px] text-muted-foreground block">{u.id.slice(0, 8)}...</span>
+                        <span className="font-mono text-[10px] text-muted-foreground block">
+                          {u.id.slice(0, 8)}...
+                        </span>
                       </div>
                     </div>
                   </TableCell>

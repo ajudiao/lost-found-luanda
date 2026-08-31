@@ -33,13 +33,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const parsed = JSON.parse(raw);
           setUser(parsed);
           // Tenta validar no backend se o token for válido
-          api.getMe().then((res) => {
-            if (res?.user) {
-              const updated = { ...parsed, ...res.user };
-              setUser(updated);
-              localStorage.setItem(KEY, JSON.stringify(updated));
-            }
-          }).catch(() => {});
+          api
+            .getMe()
+            .then((res) => {
+              if (res?.user) {
+                const updated = { ...parsed, ...res.user };
+                setUser(updated);
+                localStorage.setItem(KEY, JSON.stringify(updated));
+              }
+            })
+            .catch(() => {});
         }
       } catch {}
       setReady(true);

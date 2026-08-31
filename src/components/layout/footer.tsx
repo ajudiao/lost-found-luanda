@@ -1,5 +1,16 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin, Mail, Phone, Facebook, Instagram, Twitter, MessageCircle, Heart, ArrowRight, ShieldCheck } from "lucide-react";
+import {
+  MapPin,
+  Mail,
+  Phone,
+  Facebook,
+  Instagram,
+  Twitter,
+  MessageCircle,
+  Heart,
+  ArrowRight,
+  ShieldCheck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
@@ -28,7 +39,8 @@ export function Footer() {
             </Link>
 
             <p className="text-sm text-zinc-400 max-w-sm leading-relaxed">
-              A plataforma comunitária oficial para registar, procurar e recuperar objetos e documentos perdidos ou encontrados em Luanda.
+              A plataforma comunitária oficial para registar, procurar e recuperar objetos e
+              documentos perdidos ou encontrados em Luanda.
             </p>
 
             {/* Quick Action Badge */}
@@ -49,22 +61,34 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-zinc-400">
               <li>
-                <Link to="/perdidos" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link
+                  to="/perdidos"
+                  className="hover:text-white transition-colors flex items-center gap-1.5"
+                >
                   Objetos Perdidos
                 </Link>
               </li>
               <li>
-                <Link to="/encontrados" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link
+                  to="/encontrados"
+                  className="hover:text-white transition-colors flex items-center gap-1.5"
+                >
                   Objetos Encontrados
                 </Link>
               </li>
               <li>
-                <Link to="/avisos" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link
+                  to="/avisos"
+                  className="hover:text-white transition-colors flex items-center gap-1.5"
+                >
                   Avisos Comunitários
                 </Link>
               </li>
               <li>
-                <Link to="/publicar" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link
+                  to="/publicar"
+                  className="hover:text-white transition-colors flex items-center gap-1.5"
+                >
                   Reportar Perda ou Achado
                 </Link>
               </li>

@@ -3,7 +3,15 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Bell, Package, TrendingUp, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { AreaChart, Area, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import {
+  AreaChart,
+  Area,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+} from "recharts";
 import { api } from "@/lib/api";
 
 export const Route = createFileRoute("/admin/")({
@@ -47,10 +55,30 @@ function AdminDashboard() {
   ];
 
   const cards = [
-    { label: "Ocorrências Perdidos", value: totalPerdidos.toString(), trend: "Ativo", icon: Package },
-    { label: "Ocorrências Encontrados", value: totalEncontrados.toString(), trend: "Ativo", icon: Bell },
-    { label: "Itens Recuperados", value: totalRecuperados.toString(), trend: "Sucesso", icon: TrendingUp },
-    { label: "Total na Plataforma", value: (totalPerdidos + totalEncontrados).toString(), trend: "+100%", icon: Users },
+    {
+      label: "Ocorrências Perdidos",
+      value: totalPerdidos.toString(),
+      trend: "Ativo",
+      icon: Package,
+    },
+    {
+      label: "Ocorrências Encontrados",
+      value: totalEncontrados.toString(),
+      trend: "Ativo",
+      icon: Bell,
+    },
+    {
+      label: "Itens Recuperados",
+      value: totalRecuperados.toString(),
+      trend: "Sucesso",
+      icon: TrendingUp,
+    },
+    {
+      label: "Total na Plataforma",
+      value: (totalPerdidos + totalEncontrados).toString(),
+      trend: "+100%",
+      icon: Users,
+    },
   ];
 
   return (
@@ -94,8 +122,22 @@ function AdminDashboard() {
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="perdidos" stroke="#ef4444" fill="#ef4444" fillOpacity={0.2} name="Perdidos" />
-                <Area type="monotone" dataKey="encontrados" stroke="#22c55e" fill="#22c55e" fillOpacity={0.2} name="Encontrados" />
+                <Area
+                  type="monotone"
+                  dataKey="perdidos"
+                  stroke="#ef4444"
+                  fill="#ef4444"
+                  fillOpacity={0.2}
+                  name="Perdidos"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="encontrados"
+                  stroke="#22c55e"
+                  fill="#22c55e"
+                  fillOpacity={0.2}
+                  name="Encontrados"
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -108,7 +150,10 @@ function AdminDashboard() {
               <p className="text-xs text-muted-foreground">A carregar atividades...</p>
             ) : (
               activitiesList.map((a) => (
-                <div key={a.id} className="flex items-start gap-3 text-xs border-b border-border/50 pb-3 last:border-0">
+                <div
+                  key={a.id}
+                  className="flex items-start gap-3 text-xs border-b border-border/50 pb-3 last:border-0"
+                >
                   <div className="h-2 w-2 rounded-full bg-primary mt-1 shrink-0" />
                   <div>
                     <p className="font-medium text-foreground">

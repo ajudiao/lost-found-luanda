@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Search, Sparkles, Shield, Users, Bell, MapPin } from "lucide-react";
+import { Search, Sparkles, Shield, Users, Bell, MapPin, AlertTriangle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export const Route = createFileRoute("/como-funciona")({
   head: () => ({ meta: [{ title: "Como Funciona — Achados Luanda" }] }),
@@ -8,16 +9,61 @@ export const Route = createFileRoute("/como-funciona")({
 
 function HowItWorks() {
   const steps = [
-    { icon: Search, title: "1. Registe a ocorrência", desc: "Diga se perdeu, encontrou ou quer publicar um aviso. Descreva o objeto, adicione fotos e a localização." },
-    { icon: Sparkles, title: "2. Correspondências automáticas", desc: "A plataforma compara descrições, categorias e locais para sugerir possíveis correspondências." },
-    { icon: Bell, title: "3. Notificações em tempo real", desc: "Receba alertas quando algo semelhante for publicado ou quando alguém contactar consigo." },
-    { icon: Shield, title: "4. Recupere em segurança", desc: "Combine com o outro utilizador através dos contactos partilhados e recupere o objeto." },
+    {
+      icon: Search,
+      title: "1. Registe a ocorrência",
+      desc: "Diga se perdeu, encontrou ou quer publicar um aviso. Descreva o objeto, adicione fotos e a localização.",
+    },
+    {
+      icon: Sparkles,
+      title: "2. Correspondências automáticas",
+      desc: "A plataforma compara descrições, categorias e locais para sugerir possíveis correspondências.",
+    },
+    {
+      icon: Bell,
+      title: "3. Notificações em tempo real",
+      desc: "Receba alertas quando algo semelhante for publicado ou quando alguém contactar consigo.",
+    },
+    {
+      icon: Shield,
+      title: "4. Recupere em segurança",
+      desc: "Combine com o outro utilizador através dos contactos partilhados e recupere o objeto.",
+    },
   ];
   return (
     <main className="container-page py-16">
       <div className="max-w-2xl mx-auto text-center">
         <h1 className="text-4xl lg:text-5xl font-display font-bold">Como funciona</h1>
         <p className="mt-4 text-muted-foreground">Quatro passos para reencontrar o que é seu.</p>
+      </div>
+
+      <div className="mt-8 max-w-3xl mx-auto">
+        <Alert className="border-amber-200 bg-amber-50 dark:bg-amber-950 dark:border-amber-800">
+          <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+          <AlertDescription className="text-amber-900 dark:text-amber-100">
+            <strong>Aviso de Segurança:</strong> A Achados Luanda não garante a veracidade dos dados
+            cadastrados pelos utilizadores. Por sua segurança:
+            <ul className="mt-3 space-y-2 ml-4">
+              <li>
+                • <strong>Tome cuidado</strong> ao interagir com outros utilizadores
+              </li>
+              <li>
+                • <strong>Sempre faça encontros em locais públicos</strong> (centros comerciais,
+                cafés, etc.)
+              </li>
+              <li>
+                • <strong>Encontre-se próximo ou dentro de uma esquadra de polícia</strong> sempre
+                que possível
+              </li>
+              <li>
+                • Antes de devolver, <strong>peça uma prova de propriedade</strong>: desbloquear o
+                aparelho, indicar um detalhe não publicado ou mostrar uma fotografia original
+              </li>
+              <li>• Nunca publique a senha ou a prova de propriedade no anúncio</li>
+              <li>• Não partilhe dados sensíveis até estar completamente seguro</li>
+            </ul>
+          </AlertDescription>
+        </Alert>
       </div>
       <div className="mt-12 grid gap-5 md:grid-cols-2 max-w-4xl mx-auto">
         {steps.map((s) => (

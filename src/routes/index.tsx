@@ -2,8 +2,25 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, Bell, MapPin, Search, Sparkles, Users, TrendingUp, Package,
-  Smartphone, FileText, Key, Wallet, Briefcase, Car, Dog, Watch, Laptop, Shirt, Compass
+  ArrowRight,
+  Bell,
+  MapPin,
+  Search,
+  Sparkles,
+  Users,
+  TrendingUp,
+  Package,
+  Smartphone,
+  FileText,
+  Key,
+  Wallet,
+  Briefcase,
+  Car,
+  Dog,
+  Watch,
+  Laptop,
+  Shirt,
+  Compass,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -31,16 +48,16 @@ const defaultCategories = [
 ];
 
 const categoryIconMap: Record<string, { icon: any; emoji: string }> = {
-  "eletrónicos": { icon: Smartphone, emoji: "📱" },
-  "documentos": { icon: FileText, emoji: "📄" },
-  "chaves": { icon: Key, emoji: "🔑" },
-  "carteiras": { icon: Wallet, emoji: "👛" },
-  "bagagem": { icon: Briefcase, emoji: "🧳" },
-  "veículos": { icon: Car, emoji: "🚗" },
-  "animais": { icon: Dog, emoji: "🐕" },
-  "acessórios": { icon: Watch, emoji: "⌚" },
-  "informática": { icon: Laptop, emoji: "💻" },
-  "vestuário": { icon: Shirt, emoji: "👕" },
+  eletrónicos: { icon: Smartphone, emoji: "📱" },
+  documentos: { icon: FileText, emoji: "📄" },
+  chaves: { icon: Key, emoji: "🔑" },
+  carteiras: { icon: Wallet, emoji: "👛" },
+  bagagem: { icon: Briefcase, emoji: "🧳" },
+  veículos: { icon: Car, emoji: "🚗" },
+  animais: { icon: Dog, emoji: "🐕" },
+  acessórios: { icon: Watch, emoji: "⌚" },
+  informática: { icon: Laptop, emoji: "💻" },
+  vestuário: { icon: Shirt, emoji: "👕" },
 };
 
 function Index() {
@@ -85,9 +102,25 @@ function Index() {
   const recentes = occurrencesList.slice(0, 6);
 
   const stats = [
-    { icon: Package, label: "Ocorrências", value: publicStats?.totalOccurrences !== undefined ? publicStats.totalOccurrences.toString() : "0" },
-    { icon: Sparkles, label: "Recuperados", value: publicStats?.resolvedOccurrences !== undefined ? publicStats.resolvedOccurrences.toString() : "0" },
-    { icon: Users, label: "Utilizadores", value: publicStats?.totalUsers !== undefined ? publicStats.totalUsers.toString() : "0" },
+    {
+      icon: Package,
+      label: "Ocorrências",
+      value:
+        publicStats?.totalOccurrences !== undefined ? publicStats.totalOccurrences.toString() : "0",
+    },
+    {
+      icon: Sparkles,
+      label: "Recuperados",
+      value:
+        publicStats?.resolvedOccurrences !== undefined
+          ? publicStats.resolvedOccurrences.toString()
+          : "0",
+    },
+    {
+      icon: Users,
+      label: "Utilizadores",
+      value: publicStats?.totalUsers !== undefined ? publicStats.totalUsers.toString() : "0",
+    },
     { icon: TrendingUp, label: "Taxa de sucesso", value: publicStats?.successRate || "0%" },
   ];
 
@@ -108,41 +141,74 @@ function Index() {
         </div>
 
         <div className="container-page pt-4 pb-10 grid gap-12 lg:grid-cols-2 items-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <Badge variant="outline" className="mb-6 py-1.5 px-3.5 bg-zinc-950/85 backdrop-blur-md border-red-500/50 text-white shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Badge
+              variant="outline"
+              className="mb-6 py-1.5 px-3.5 bg-zinc-950/85 backdrop-blur-md border-red-500/50 text-white shadow-xl"
+            >
               <span className="mr-2 h-2 w-2 rounded-full bg-red-500 animate-pulse" />
               Plataforma comunitária • Luanda 🇦🇴
             </Badge>
 
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]">
-              Perdeu ou encontrou<br />um objeto em <span className="text-blue-400 drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">Luanda</span>?
+              Perdeu ou encontrou
+              <br />
+              um objeto em{" "}
+              <span className="text-blue-400 drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">Luanda</span>
+              ?
             </h1>
 
             <p className="mt-6 text-lg text-zinc-100 max-w-xl font-medium leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
-              Registe uma ocorrência e deixe a plataforma ajudá-lo a encontrar correspondências automaticamente.
+              Registe uma ocorrência e deixe a plataforma ajudá-lo a encontrar correspondências
+              automaticamente.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="h-12 px-6 shadow-xl shadow-blue-900/40 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/30">
-                <Link to="/publicar">Reportar Perda <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Button
+                asChild
+                size="lg"
+                className="h-12 px-6 shadow-xl shadow-blue-900/40 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/30"
+              >
+                <Link to="/publicar">
+                  Reportar Perda <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
-              <Button asChild size="lg" variant="secondary" className="h-12 px-6 rounded-2xl backdrop-blur-md bg-zinc-900/90 hover:bg-zinc-800 text-white border border-zinc-700/80 shadow-lg">
+              <Button
+                asChild
+                size="lg"
+                variant="secondary"
+                className="h-12 px-6 rounded-2xl backdrop-blur-md bg-zinc-900/90 hover:bg-zinc-800 text-white border border-zinc-700/80 shadow-lg"
+              >
                 <Link to="/publicar">Reportar Encontro</Link>
               </Button>
-              <Button asChild size="lg" variant="ghost" className="h-12 px-6 rounded-2xl bg-zinc-950/60 hover:bg-zinc-900/90 text-white backdrop-blur-md border border-zinc-800/80">
+              <Button
+                asChild
+                size="lg"
+                variant="ghost"
+                className="h-12 px-6 rounded-2xl bg-zinc-950/60 hover:bg-zinc-900/90 text-white backdrop-blur-md border border-zinc-800/80"
+              >
                 <Link to="/avisos">Ver Avisos de Encontro</Link>
               </Button>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="relative"
           >
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-primary/20 via-transparent to-red-500/10 blur-xl" />
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <img src={heroImg} alt="Comunidade de Luanda" className="w-full h-[380px] object-cover rounded-3xl" />
+              <img
+                src={heroImg}
+                alt="Comunidade de Luanda"
+                className="w-full h-[380px] object-cover rounded-3xl"
+              />
             </div>
           </motion.div>
         </div>
@@ -155,7 +221,6 @@ function Index() {
 
       {/* Dynamic Moving Marquee Categories */}
       <section className="container-page pt-10 relative z-10 space-y-8">
-
         <div className="space-y-4">
           <div className="flex items-center justify-between border-b border-border pb-4">
             <div className="flex items-center gap-2">
@@ -163,11 +228,18 @@ function Index() {
                 <Compass className="h-4.5 w-4.5" />
               </div>
               <div>
-                <h2 className="text-xl font-display font-bold leading-none">Explorar por Categoria</h2>
-                <p className="text-xs text-muted-foreground mt-1">Passe o cursor para pausar o movimento contínuo</p>
+                <h2 className="text-xl font-display font-bold leading-none">
+                  Explorar por Categoria
+                </h2>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Passe o cursor para pausar o movimento contínuo
+                </p>
               </div>
             </div>
-            <Link to="/perdidos" className="text-sm font-semibold text-primary hover:underline flex items-center gap-1">
+            <Link
+              to="/perdidos"
+              className="text-sm font-semibold text-primary hover:underline flex items-center gap-1"
+            >
               Ver todas <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -207,7 +279,9 @@ function Index() {
                       <span className="font-display font-bold text-sm text-foreground group-hover/card:text-primary transition-colors whitespace-nowrap">
                         {cat.name}
                       </span>
-                      <span className="text-[10px] text-muted-foreground font-medium">Explorar itens →</span>
+                      <span className="text-[10px] text-muted-foreground font-medium">
+                        Explorar itens →
+                      </span>
                     </div>
                   </Link>
                 );
@@ -222,7 +296,9 @@ function Index() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-2xl font-display font-bold">Ocorrências Recentes</h2>
-            <p className="text-sm text-muted-foreground">Adicionadas recentemente pela comunidade</p>
+            <p className="text-sm text-muted-foreground">
+              Adicionadas recentemente pela comunidade
+            </p>
           </div>
           <Button asChild variant="outline" className="rounded-xl">
             <Link to="/perdidos">Ver Todas</Link>
@@ -246,7 +322,10 @@ function Index() {
           <div className="container-page">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <Badge variant="outline" className="mb-2 bg-amber-500/10 text-amber-600 border-amber-500/20">
+                <Badge
+                  variant="outline"
+                  className="mb-2 bg-amber-500/10 text-amber-600 border-amber-500/20"
+                >
                   Avisos de Encontro
                 </Badge>
                 <h2 className="text-2xl font-display font-bold">Utilidade Pública</h2>
@@ -274,7 +353,9 @@ function Index() {
                 <div className="grid h-10 w-10 place-items-center rounded-xl bg-zinc-900 border border-zinc-800 text-primary">
                   <s.icon className="h-5 w-5" />
                 </div>
-                <p className="font-display text-3xl font-extrabold text-white tracking-tight">{s.value}</p>
+                <p className="font-display text-3xl font-extrabold text-white tracking-tight">
+                  {s.value}
+                </p>
                 <p className="text-sm text-zinc-400 font-medium">{s.label}</p>
               </div>
             ))}

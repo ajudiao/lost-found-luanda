@@ -4,8 +4,21 @@ import { Search, Eye, CheckCircle, XCircle, Trash2, Database } from "lucide-reac
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 
@@ -68,7 +81,10 @@ function AdminOcorrencias() {
       <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-display font-bold flex items-center gap-2">
-            Ocorrências <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20"><Database className="h-3 w-3 mr-1" /> NeonDB API</Badge>
+            Ocorrências{" "}
+            <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+              <Database className="h-3 w-3 mr-1" /> NeonDB API
+            </Badge>
           </h1>
           <p className="text-sm text-muted-foreground">
             Gerir e moderar todas as ocorrências registadas em tempo real na base de dados.

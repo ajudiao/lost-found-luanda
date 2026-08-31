@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { api } from "@/lib/api";
 
 export function SearchBar({ big = false }: { big?: boolean }) {
@@ -14,10 +20,7 @@ export function SearchBar({ big = false }: { big?: boolean }) {
   useEffect(() => {
     async function loadFilters() {
       try {
-        const [cats, locs] = await Promise.all([
-          api.getCategories(),
-          api.getLocations(),
-        ]);
+        const [cats, locs] = await Promise.all([api.getCategories(), api.getLocations()]);
         setCategoriesList(cats || []);
         setMunicipalitiesList(locs?.municipalities || []);
       } catch (err) {

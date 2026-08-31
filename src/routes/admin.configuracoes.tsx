@@ -71,10 +71,7 @@ function AdminConfiguracoes() {
               Rever cada publicação (status EM_ANALISE) antes de ficar visível publicamente.
             </p>
           </div>
-          <Switch
-            checked={requireModeration}
-            onCheckedChange={setRequireModeration}
-          />
+          <Switch checked={requireModeration} onCheckedChange={setRequireModeration} />
         </div>
       </div>
 

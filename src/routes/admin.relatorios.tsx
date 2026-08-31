@@ -2,7 +2,18 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Download, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BarChart, Bar, LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  Legend,
+} from "recharts";
 import { api } from "@/lib/api";
 
 export const Route = createFileRoute("/admin/relatorios")({
@@ -10,10 +21,18 @@ export const Route = createFileRoute("/admin/relatorios")({
 });
 
 const reports = [
-  { title: "Relatório mensal de ocorrências", desc: "Detalhe de todas as ocorrências do mês", date: "Julho 2026" },
+  {
+    title: "Relatório mensal de ocorrências",
+    desc: "Detalhe de todas as ocorrências do mês",
+    date: "Julho 2026",
+  },
   { title: "Taxa de recuperação", desc: "Objetos devolvidos vs. reportados", date: "Julho 2026" },
   { title: "Atividade de utilizadores", desc: "Novos cadastros e engajamento", date: "Julho 2026" },
-  { title: "Distribuição geográfica", desc: "Concentração de ocorrências por município", date: "Julho 2026" },
+  {
+    title: "Distribuição geográfica",
+    desc: "Concentração de ocorrências por município",
+    date: "Julho 2026",
+  },
 ];
 
 function AdminRelatorios() {
@@ -61,11 +80,35 @@ function AdminRelatorios() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
                 <XAxis dataKey="month" stroke="var(--color-muted-foreground)" fontSize={12} />
                 <YAxis stroke="var(--color-muted-foreground)" fontSize={12} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 8 }} />
+                <Tooltip
+                  contentStyle={{
+                    background: "var(--color-card)",
+                    border: "1px solid var(--color-border)",
+                    borderRadius: 8,
+                  }}
+                />
                 <Legend />
-                <Line type="monotone" dataKey="perdidos" stroke="#ef4444" strokeWidth={2} name="Perdidos" />
-                <Line type="monotone" dataKey="encontrados" stroke="#22c55e" strokeWidth={2} name="Encontrados" />
-                <Line type="monotone" dataKey="recuperados" stroke="#3b82f6" strokeWidth={2} name="Recuperados" />
+                <Line
+                  type="monotone"
+                  dataKey="perdidos"
+                  stroke="#ef4444"
+                  strokeWidth={2}
+                  name="Perdidos"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="encontrados"
+                  stroke="#22c55e"
+                  strokeWidth={2}
+                  name="Encontrados"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="recuperados"
+                  stroke="#3b82f6"
+                  strokeWidth={2}
+                  name="Recuperados"
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -78,8 +121,19 @@ function AdminRelatorios() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
                 <XAxis dataKey="month" stroke="var(--color-muted-foreground)" fontSize={12} />
                 <YAxis stroke="var(--color-muted-foreground)" fontSize={12} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 8 }} />
-                <Bar dataKey="recuperados" fill="#3b82f6" radius={[8, 8, 0, 0]} name="Recuperados" />
+                <Tooltip
+                  contentStyle={{
+                    background: "var(--color-card)",
+                    border: "1px solid var(--color-border)",
+                    borderRadius: 8,
+                  }}
+                />
+                <Bar
+                  dataKey="recuperados"
+                  fill="#3b82f6"
+                  radius={[8, 8, 0, 0]}
+                  name="Recuperados"
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>

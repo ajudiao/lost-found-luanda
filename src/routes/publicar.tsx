@@ -1,12 +1,27 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronLeft, ChevronRight, Upload, PackageX, PackageCheck, Bell, X } from "lucide-react";
+import {
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Upload,
+  PackageX,
+  PackageCheck,
+  Bell,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 
@@ -49,10 +64,7 @@ function Publish() {
   useEffect(() => {
     async function loadOptions() {
       try {
-        const [cats, locs] = await Promise.all([
-          api.getCategories(),
-          api.getLocations(),
-        ]);
+        const [cats, locs] = await Promise.all([api.getCategories(), api.getLocations()]);
         setCategoriesList(cats || []);
         setMunicipalitiesList(locs?.municipalities || []);
       } catch (err) {
@@ -96,7 +108,10 @@ function Publish() {
       if (model) formData.append("model", model);
       if (color) formData.append("color", color);
       if (featuresStr) {
-        const featuresArr = featuresStr.split(",").map((s) => s.trim()).filter(Boolean);
+        const featuresArr = featuresStr
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
         formData.append("features", JSON.stringify(featuresArr));
       }
       formData.append("municipality", municipality);
@@ -135,8 +150,8 @@ function Publish() {
                 i < step
                   ? "bg-success text-success-foreground"
                   : i === step
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground"
               }`}
             >
               {i < step ? <Check className="h-4 w-4" /> : i + 1}
@@ -168,9 +183,24 @@ function Publish() {
               <div className="space-y-3">
                 <h2 className="font-display text-xl font-bold">O que aconteceu?</h2>
                 {[
-                  { id: "perdido", label: "Perdi um objeto", desc: "Reporte algo que perdeu.", icon: PackageX },
-                  { id: "encontrado", label: "Encontrei um objeto", desc: "Reporte algo que encontrou.", icon: PackageCheck },
-                  { id: "aviso", label: "Criar Aviso de Encontro", desc: "Publique um aviso público.", icon: Bell },
+                  {
+                    id: "perdido",
+                    label: "Perdi um objeto",
+                    desc: "Reporte algo que perdeu.",
+                    icon: PackageX,
+                  },
+                  {
+                    id: "encontrado",
+                    label: "Encontrei um objeto",
+                    desc: "Reporte algo que encontrou.",
+                    icon: PackageCheck,
+                  },
+                  {
+                    id: "aviso",
+                    label: "Criar Aviso de Encontro",
+                    desc: "Publique um aviso público.",
+                    icon: Bell,
+                  },
                 ].map((opt) => (
                   <button
                     key={opt.id}
@@ -312,11 +342,7 @@ function Publish() {
                 </div>
                 <div>
                   <Label>Data</Label>
-                  <Input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  />
+                  <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                 </div>
               </div>
             )}

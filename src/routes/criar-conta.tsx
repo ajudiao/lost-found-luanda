@@ -136,8 +136,7 @@ function Register() {
               />
             </div>
             <Button type="submit" className="w-full" size="lg" disabled={loading}>
-              {loading ? "A criar..." : "Criar Conta"}{" "}
-              <ArrowRight className="ml-2 h-4 w-4" />
+              {loading ? "A criar..." : "Criar Conta"} <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <Button asChild type="button" variant="outline" className="w-full">
               <Link to="/entrar">Já tenho conta</Link>

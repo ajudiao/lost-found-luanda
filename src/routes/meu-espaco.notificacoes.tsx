@@ -34,9 +34,7 @@ function Notificacoes() {
   const handleMarkRead = async (id: string) => {
     try {
       await api.markNotificationRead(id);
-      setList((prev) =>
-        prev.map((item) => (item.id === id ? { ...item, read: true } : item))
-      );
+      setList((prev) => prev.map((item) => (item.id === id ? { ...item, read: true } : item)));
       toast.success("Notificação marcada como lida.");
     } catch (err: any) {
       toast.error(err.message || "Erro ao atualizar notificação.");
@@ -84,7 +82,12 @@ function Notificacoes() {
           <Button variant="ghost" size="sm" onClick={loadNotifications} disabled={loading}>
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
           </Button>
-          <Button variant="outline" size="sm" onClick={markAllRead} disabled={loading || unreadCount === 0}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={markAllRead}
+            disabled={loading || unreadCount === 0}
+          >
             <Check className="h-4 w-4 mr-1.5" /> Marcar tudo como lido
           </Button>
         </div>
@@ -99,8 +102,11 @@ function Notificacoes() {
         ) : (
           list.map((n) => {
             const descText = n.desc || n.description || "Nova notificação no sistema.";
-            const timeText = n.time || (n.createdAt ? new Date(n.createdAt).toLocaleDateString("pt-PT") : "");
-            const isMatch = n.title?.toLowerCase().includes("correspondência") || n.title?.toLowerCase().includes("match");
+            const timeText =
+              n.time || (n.createdAt ? new Date(n.createdAt).toLocaleDateString("pt-PT") : "");
+            const isMatch =
+              n.title?.toLowerCase().includes("correspondência") ||
+              n.title?.toLowerCase().includes("match");
             const isMsg = n.title?.toLowerCase().includes("mensagem");
 
             return (
@@ -116,8 +122,8 @@ function Notificacoes() {
                     isMatch
                       ? "bg-amber-500/10 text-amber-600"
                       : isMsg
-                      ? "bg-blue-500/10 text-blue-600"
-                      : "bg-primary/10 text-primary"
+                        ? "bg-blue-500/10 text-blue-600"
+                        : "bg-primary/10 text-primary"
                   }`}
                 >
                   {isMatch ? (
@@ -131,7 +137,9 @@ function Notificacoes() {
 
                 <div className="flex-1 min-w-0 space-y-1">
                   <div className="flex items-center justify-between gap-2">
-                    <p className={`text-sm font-semibold ${n.read ? "text-foreground" : "text-primary font-bold"}`}>
+                    <p
+                      className={`text-sm font-semibold ${n.read ? "text-foreground" : "text-primary font-bold"}`}
+                    >
                       {n.title}
                     </p>
                     <span className="text-[11px] text-muted-foreground font-medium shrink-0">
@@ -167,7 +175,8 @@ function Notificacoes() {
             </div>
             <p className="font-semibold text-base">Sem notificações</p>
             <p className="text-xs text-muted-foreground max-w-sm mx-auto">
-              Não tem nenhuma notificação pendente de momento. Quando houver correspondências ou novidades, aparecerão aqui.
+              Não tem nenhuma notificação pendente de momento. Quando houver correspondências ou
+              novidades, aparecerão aqui.
             </p>
           </div>
         )}

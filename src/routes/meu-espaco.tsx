@@ -1,11 +1,30 @@
 import { createFileRoute, Link, Outlet, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { LayoutDashboard, FileText, Plus, MessageSquare, Bell, User, Settings, MapPin, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  FileText,
+  Plus,
+  MessageSquare,
+  Bell,
+  User,
+  Settings,
+  MapPin,
+  LogOut,
+} from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import {
-  SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent,
-  SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarTrigger, SidebarHeader, SidebarFooter,
+  SidebarProvider,
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarTrigger,
+  SidebarHeader,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 
 export const Route = createFileRoute("/meu-espaco")({
@@ -43,8 +62,12 @@ function MyAreaLayout() {
         <Sidebar collapsible="icon">
           <SidebarHeader className="p-4">
             <Link to="/" className="flex items-center gap-2">
-              <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-tr from-red-600 to-rose-500 text-white shadow-md shadow-red-500/20 shrink-0"><MapPin className="h-4 w-4 fill-white/20" /></div>
-              <span className="font-display font-bold truncate">Achados<span className="text-red-500">.</span>Luanda</span>
+              <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-tr from-red-600 to-rose-500 text-white shadow-md shadow-red-500/20 shrink-0">
+                <MapPin className="h-4 w-4 fill-white/20" />
+              </div>
+              <span className="font-display font-bold truncate">
+                Achados<span className="text-red-500">.</span>Luanda
+              </span>
             </Link>
           </SidebarHeader>
           <SidebarContent>
@@ -55,7 +78,8 @@ function MyAreaLayout() {
                     <SidebarMenuItem key={item.to}>
                       <SidebarMenuButton asChild isActive={isActive(item)}>
                         <Link to={item.to as "/meu-espaco"} className="flex items-center gap-2">
-                          <item.icon className="h-4 w-4" /><span>{item.label}</span>
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.label}</span>
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -65,7 +89,15 @@ function MyAreaLayout() {
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter className="p-3">
-            <Button variant="ghost" size="sm" onClick={() => { logout(); navigate({ to: "/" }); }} className="justify-start">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                logout();
+                navigate({ to: "/" });
+              }}
+              className="justify-start"
+            >
               <LogOut className="h-4 w-4 mr-2" /> Sair
             </Button>
           </SidebarFooter>
@@ -76,7 +108,11 @@ function MyAreaLayout() {
             <SidebarTrigger />
             <span className="text-sm font-semibold">Meu Espaço</span>
             <div className="ml-auto flex items-center gap-2">
-              <Button asChild size="sm"><Link to="/publicar"><Plus className="h-4 w-4 mr-1" /> Publicar</Link></Button>
+              <Button asChild size="sm">
+                <Link to="/publicar">
+                  <Plus className="h-4 w-4 mr-1" /> Publicar
+                </Link>
+              </Button>
             </div>
           </header>
           <main className="flex-1 p-4 lg:p-8">

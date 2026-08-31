@@ -20,11 +20,23 @@ function Configuracoes() {
   const set = (k: keyof typeof prefs) => (v: boolean) => setPrefs((p) => ({ ...p, [k]: v }));
 
   const rows: { key: keyof typeof prefs; title: string; desc: string }[] = [
-    { key: "emailMatches", title: "Correspondências por email", desc: "Receba um email quando algo parecido com o que perdeu for publicado." },
-    { key: "emailMessages", title: "Mensagens por email", desc: "Notifique-me quando alguém responder a uma ocorrência minha." },
+    {
+      key: "emailMatches",
+      title: "Correspondências por email",
+      desc: "Receba um email quando algo parecido com o que perdeu for publicado.",
+    },
+    {
+      key: "emailMessages",
+      title: "Mensagens por email",
+      desc: "Notifique-me quando alguém responder a uma ocorrência minha.",
+    },
     { key: "pushAll", title: "Notificações push", desc: "Ativar notificações no navegador." },
     { key: "weekly", title: "Resumo semanal", desc: "Um resumo com o que aconteceu na sua zona." },
-    { key: "publicProfile", title: "Perfil público", desc: "Permitir que outros utilizadores vejam o meu perfil." },
+    {
+      key: "publicProfile",
+      title: "Perfil público",
+      desc: "Permitir que outros utilizadores vejam o meu perfil.",
+    },
   ];
 
   return (
@@ -61,13 +73,17 @@ function Configuracoes() {
             <Input id="new" type="password" />
           </div>
         </div>
-        <div className="flex justify-end"><Button>Atualizar senha</Button></div>
+        <div className="flex justify-end">
+          <Button>Atualizar senha</Button>
+        </div>
       </section>
 
       <section className="rounded-2xl border border-destructive/40 bg-destructive/5 p-6 flex items-center justify-between gap-4">
         <div>
           <h2 className="font-display font-bold text-destructive">Eliminar conta</h2>
-          <p className="text-xs text-muted-foreground">Esta ação é permanente e não pode ser desfeita.</p>
+          <p className="text-xs text-muted-foreground">
+            Esta ação é permanente e não pode ser desfeita.
+          </p>
         </div>
         <Button variant="destructive">Eliminar conta</Button>
       </section>

@@ -65,17 +65,20 @@ function Mensagens() {
   // Carregar sugestões imediatamente ao abrir o modal ou ao pesquisar
   useEffect(() => {
     if (!showNewChatModal) return;
-    const timer = setTimeout(async () => {
-      try {
-        setSearchingUsers(true);
-        const users = await api.searchUsers(userSearchTerm.trim());
-        setSearchResults(users || []);
-      } catch (err) {
-        console.error("Erro ao pesquisar utilizadores:", err);
-      } finally {
-        setSearchingUsers(false);
-      }
-    }, userSearchTerm ? 250 : 0);
+    const timer = setTimeout(
+      async () => {
+        try {
+          setSearchingUsers(true);
+          const users = await api.searchUsers(userSearchTerm.trim());
+          setSearchResults(users || []);
+        } catch (err) {
+          console.error("Erro ao pesquisar utilizadores:", err);
+        } finally {
+          setSearchingUsers(false);
+        }
+      },
+      userSearchTerm ? 250 : 0,
+    );
     return () => clearTimeout(timer);
   }, [userSearchTerm, showNewChatModal]);
 
@@ -198,11 +201,7 @@ function Mensagens() {
             {!loading && filteredConversations.length === 0 && (
               <div className="p-6 text-center text-xs text-muted-foreground space-y-2">
                 <p>Nenhuma conversa encontrada.</p>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => setShowNewChatModal(true)}
-                >
+                <Button size="sm" variant="outline" onClick={() => setShowNewChatModal(true)}>
                   <UserPlus className="h-3.5 w-3.5 mr-1" /> Buscar utilizador
                 </Button>
               </div>
@@ -253,10 +252,7 @@ function Mensagens() {
 
               <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 bg-muted/20 min-h-0">
                 {messagesList.map((m) => (
-                  <div
-                    key={m.id}
-                    className={`flex ${m.fromMe ? "justify-end" : "justify-start"}`}
-                  >
+                  <div key={m.id} className={`flex ${m.fromMe ? "justify-end" : "justify-start"}`}>
                     <div
                       className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm break-words ${
                         m.fromMe
@@ -276,7 +272,10 @@ function Mensagens() {
                   </div>
                 ))}
               </div>
-              <form onSubmit={handleSend} className="p-3 border-t border-border flex gap-2 shrink-0">
+              <form
+                onSubmit={handleSend}
+                className="p-3 border-t border-border flex gap-2 shrink-0"
+              >
                 <Input
                   value={draft}
                   onChange={(e) => setDraft(e.target.value)}
@@ -339,7 +338,9 @@ function Mensagens() {
 
             <div className="max-h-72 overflow-y-auto space-y-2 pr-1">
               {searchingUsers ? (
-                <p className="p-6 text-center text-xs text-muted-foreground">A pesquisar utilizadores...</p>
+                <p className="p-6 text-center text-xs text-muted-foreground">
+                  A pesquisar utilizadores...
+                </p>
               ) : searchResults.length > 0 ? (
                 searchResults.map((u) => (
                   <button
@@ -348,7 +349,11 @@ function Mensagens() {
                     className="w-full flex items-center gap-3 p-3 rounded-xl border border-border hover:bg-accent/40 text-left transition-colors group"
                   >
                     {u.avatar ? (
-                      <img src={u.avatar} alt="" className="h-10 w-10 rounded-full object-cover shrink-0" />
+                      <img
+                        src={u.avatar}
+                        alt=""
+                        className="h-10 w-10 rounded-full object-cover shrink-0"
+                      />
                     ) : (
                       <div className="h-10 w-10 rounded-full bg-primary/10 text-primary grid place-items-center text-sm font-bold shrink-0">
                         {u.name?.slice(0, 2).toUpperCase() || "U"}
@@ -358,7 +363,10 @@ function Mensagens() {
                       <div className="flex items-center gap-2">
                         <p className="font-semibold text-sm truncate">{u.name}</p>
                         {u.role === "admin" && (
-                          <Badge variant="outline" className="text-[10px] py-0 bg-primary/5 text-primary border-primary/20">
+                          <Badge
+                            variant="outline"
+                            className="text-[10px] py-0 bg-primary/5 text-primary border-primary/20"
+                          >
                             Admin
                           </Badge>
                         )}
@@ -366,18 +374,25 @@ function Mensagens() {
                       <p className="text-xs text-muted-foreground truncate">{u.email}</p>
                       {u.occurrencesCount > 0 && (
                         <p className="text-[10px] text-muted-foreground mt-0.5">
-                          {u.occurrencesCount} ocorrência{u.occurrencesCount > 1 ? "s" : ""} publicada{u.occurrencesCount > 1 ? "s" : ""}
+                          {u.occurrencesCount} ocorrência{u.occurrencesCount > 1 ? "s" : ""}{" "}
+                          publicada{u.occurrencesCount > 1 ? "s" : ""}
                         </p>
                       )}
                     </div>
-                    <Button size="sm" variant="secondary" className="shrink-0 group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      className="shrink-0 group-hover:bg-primary group-hover:text-primary-foreground"
+                    >
                       <MessageCircle className="h-3.5 w-3.5 mr-1" /> Conversar
                     </Button>
                   </button>
                 ))
               ) : (
                 <div className="p-8 text-center text-xs text-muted-foreground space-y-1">
-                  <p className="font-semibold">Nenhum utilizador encontrado com "{userSearchTerm}".</p>
+                  <p className="font-semibold">
+                    Nenhum utilizador encontrado com "{userSearchTerm}".
+                  </p>
                   <p>Verifique se escreveu o email ou nome corretamente.</p>
                 </div>
               )}

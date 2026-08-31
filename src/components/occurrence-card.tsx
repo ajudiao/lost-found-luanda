@@ -25,7 +25,10 @@ const typeMeta: Record<string, { label: string; className: string }> = {
 
 const statusMeta: Record<string, { label: string; className: string }> = {
   ativo: { label: "Ativo", className: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" },
-  em_analise: { label: "Em análise", className: "bg-amber-500/10 text-amber-600 dark:text-amber-400" },
+  em_analise: {
+    label: "Em análise",
+    className: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+  },
   resolvido: { label: "Resolvido", className: "bg-blue-500/10 text-blue-600 dark:text-blue-400" },
   arquivado: { label: "Arquivado", className: "bg-zinc-500/10 text-zinc-500" },
 };
@@ -116,11 +119,17 @@ export function OccurrenceCard({
 
           {/* Badges on Image (Top Left) */}
           <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-            <Badge variant="outline" className={`${t.className} backdrop-blur-md font-semibold text-xs py-0.5 px-2.5 shadow-sm`}>
+            <Badge
+              variant="outline"
+              className={`${t.className} backdrop-blur-md font-semibold text-xs py-0.5 px-2.5 shadow-sm`}
+            >
               {t.label}
             </Badge>
             {item.category && (
-              <Badge variant="secondary" className="bg-black/40 text-white backdrop-blur-md text-[11px] font-medium border-0 py-0.5 px-2">
+              <Badge
+                variant="secondary"
+                className="bg-black/40 text-white backdrop-blur-md text-[11px] font-medium border-0 py-0.5 px-2"
+              >
                 {item.category}
               </Badge>
             )}
@@ -199,7 +208,9 @@ export function OccurrenceCard({
           <div className="pt-3 border-t border-border/60 flex items-center justify-between text-xs text-muted-foreground">
             <div className="flex items-center gap-1.5 font-medium">
               <Calendar className="h-3.5 w-3.5 text-muted-foreground/80 shrink-0" />
-              <span>{item.date ? new Date(item.date).toLocaleDateString("pt-PT") : "Recentemente"}</span>
+              <span>
+                {item.date ? new Date(item.date).toLocaleDateString("pt-PT") : "Recentemente"}
+              </span>
             </div>
 
             <div className="flex items-center gap-1 font-semibold text-primary group-hover:translate-x-0.5 transition-transform">

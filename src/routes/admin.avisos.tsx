@@ -32,7 +32,9 @@ function AdminAvisos() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-display font-bold">Avisos de Encontro</h1>
-        <p className="text-sm text-muted-foreground">Publicações de avisos moderadas pela plataforma.</p>
+        <p className="text-sm text-muted-foreground">
+          Publicações de avisos moderadas pela plataforma.
+        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

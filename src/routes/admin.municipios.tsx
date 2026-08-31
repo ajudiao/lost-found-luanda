@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 
@@ -203,7 +209,11 @@ function AdminMunicipios() {
                       onChange={(e) => setNewSingleNeighborhood(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && handleAddNeighborhood(m)}
                     />
-                    <Button size="sm" className="h-8 text-xs" onClick={() => handleAddNeighborhood(m)}>
+                    <Button
+                      size="sm"
+                      className="h-8 text-xs"
+                      onClick={() => handleAddNeighborhood(m)}
+                    >
                       Adicionar
                     </Button>
                     <Button

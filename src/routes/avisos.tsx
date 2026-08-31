@@ -5,7 +5,10 @@ export const Route = createFileRoute("/avisos")({
   head: () => ({
     meta: [
       { title: "Avisos de Encontro — Achados Luanda" },
-      { name: "description", content: "Avisos públicos de objetos encontrados em locais comunitários de Luanda." },
+      {
+        name: "description",
+        content: "Avisos públicos de objetos encontrados em locais comunitários de Luanda.",
+      },
     ],
   }),
   component: () => (

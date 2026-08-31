@@ -66,7 +66,9 @@ function Login() {
             <span className="font-display font-bold text-lg">Achados.Luanda</span>
           </Link>
           <h1 className="text-2xl font-display font-bold">Bem-vindo de volta</h1>
-          <p className="text-sm text-muted-foreground mt-1">Entre para gerir as suas ocorrências.</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            Entre para gerir as suas ocorrências.
+          </p>
 
           <form
             onSubmit={(e) => {
@@ -109,8 +111,7 @@ function Login() {
               </div>
             </div>
             <Button type="submit" className="w-full" size="lg" disabled={loading}>
-              {loading ? "A entrar..." : "Entrar"}{" "}
-              <ArrowRight className="ml-2 h-4 w-4" />
+              {loading ? "A entrar..." : "Entrar"} <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <Button asChild type="button" variant="outline" className="w-full">
               <Link to="/criar-conta">Criar Conta</Link>

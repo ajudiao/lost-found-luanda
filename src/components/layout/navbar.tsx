@@ -1,12 +1,29 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Bell, MapPin, Moon, Sun, User, LogOut, LayoutDashboard, Shield, Plus, Sparkles } from "lucide-react";
+import {
+  Menu,
+  X,
+  Bell,
+  MapPin,
+  Moon,
+  Sun,
+  User,
+  LogOut,
+  LayoutDashboard,
+  Shield,
+  Plus,
+  Sparkles,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth";
 import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem,
-  DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -41,7 +58,9 @@ export function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   const toggleDark = () => {
@@ -106,7 +125,11 @@ export function Navbar() {
             {user ? (
               <>
                 <Link to="/meu-espaco/notificacoes">
-                  <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 relative text-muted-foreground hover:text-foreground">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-full h-8 w-8 relative text-muted-foreground hover:text-foreground"
+                  >
                     <Bell className="h-4 w-4" />
                     <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-destructive animate-pulse" />
                   </Button>
@@ -114,47 +137,77 @@ export function Navbar() {
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="rounded-full gap-2 px-2 h-8 border border-border/60">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="rounded-full gap-2 px-2 h-8 border border-border/60"
+                    >
                       <Avatar className="h-6 w-6">
                         <AvatarFallback className="bg-primary text-primary-foreground text-[10px] font-bold">
                           {user.name.slice(0, 2).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="hidden md:inline text-xs font-semibold max-w-[90px] truncate">{user.name}</span>
+                      <span className="hidden md:inline text-xs font-semibold max-w-[90px] truncate">
+                        {user.name}
+                      </span>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 rounded-2xl p-2 shadow-xl border-border">
+                  <DropdownMenuContent
+                    align="end"
+                    className="w-56 rounded-2xl p-2 shadow-xl border-border"
+                  >
                     <DropdownMenuLabel className="p-2">
                       <div className="flex flex-col">
                         <span className="font-semibold text-sm">{user.name}</span>
-                        <span className="text-xs text-muted-foreground font-normal">{user.email}</span>
+                        <span className="text-xs text-muted-foreground font-normal">
+                          {user.email}
+                        </span>
                       </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {user.role === "admin" ? (
                       <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
-                        <Link to="/admin"><Shield className="h-4 w-4 mr-2 text-primary" />Painel Admin</Link>
+                        <Link to="/admin">
+                          <Shield className="h-4 w-4 mr-2 text-primary" />
+                          Painel Admin
+                        </Link>
                       </DropdownMenuItem>
                     ) : (
                       <DropdownMenuItem asChild className="rounded-xl cursor-pointer">
-                        <Link to="/meu-espaco"><LayoutDashboard className="h-4 w-4 mr-2 text-primary" />Meu Espaço</Link>
+                        <Link to="/meu-espaco">
+                          <LayoutDashboard className="h-4 w-4 mr-2 text-primary" />
+                          Meu Espaço
+                        </Link>
                       </DropdownMenuItem>
                     )}
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={logout} className="rounded-xl cursor-pointer text-destructive focus:text-destructive">
-                      <LogOut className="h-4 w-4 mr-2" />Terminar sessão
+                    <DropdownMenuItem
+                      onClick={logout}
+                      className="rounded-xl cursor-pointer text-destructive focus:text-destructive"
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Terminar sessão
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </>
             ) : (
-              <Button asChild size="sm" variant="ghost" className="rounded-full text-xs font-semibold h-8 px-3">
+              <Button
+                asChild
+                size="sm"
+                variant="ghost"
+                className="rounded-full text-xs font-semibold h-8 px-3"
+              >
                 <Link to="/entrar">Entrar</Link>
               </Button>
             )}
 
             {user?.role !== "admin" && (
-              <Button asChild size="sm" className="rounded-full text-xs font-semibold h-8 px-3.5 shadow-md shadow-primary/25 hover:shadow-primary/40 transition-all">
+              <Button
+                asChild
+                size="sm"
+                className="rounded-full text-xs font-semibold h-8 px-3.5 shadow-md shadow-primary/25 hover:shadow-primary/40 transition-all"
+              >
                 <Link to="/publicar">
                   <Plus className="h-3.5 w-3.5 mr-1" /> Publicar
                 </Link>
@@ -201,7 +254,12 @@ export function Navbar() {
                     </div>
                     <span className="font-display font-bold text-base">Achados.Luanda</span>
                   </div>
-                  <Button variant="ghost" size="icon" className="rounded-full h-8 w-8" onClick={() => setOpen(false)}>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-full h-8 w-8"
+                    onClick={() => setOpen(false)}
+                  >
                     <X className="h-4 w-4" />
                   </Button>
                 </div>
@@ -215,7 +273,9 @@ export function Navbar() {
                         to={n.to}
                         onClick={() => setOpen(false)}
                         className={`px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${
-                          active ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                          active
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:bg-accent hover:text-foreground"
                         }`}
                       >
                         {n.label}
@@ -246,7 +306,10 @@ export function Navbar() {
                       </Link>
                     )}
                     <button
-                      onClick={() => { logout(); setOpen(false); }}
+                      onClick={() => {
+                        logout();
+                        setOpen(false);
+                      }}
                       className="w-full px-4 py-3 rounded-2xl text-sm font-semibold text-destructive hover:bg-destructive/10 text-left flex items-center gap-2"
                     >
                       <LogOut className="h-4 w-4" /> Terminar Sessão

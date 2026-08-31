@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 
@@ -15,7 +21,10 @@ export const Route = createFileRoute("/meu-espaco/ocorrencias")({
 
 const statusMeta: Record<string, { label: string; className: string }> = {
   ativo: { label: "Ativo", className: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" },
-  em_analise: { label: "Em análise", className: "bg-amber-500/10 text-amber-600 border-amber-500/20" },
+  em_analise: {
+    label: "Em análise",
+    className: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+  },
   resolvido: { label: "Resolvido", className: "bg-blue-500/10 text-blue-600 border-blue-500/20" },
   arquivado: { label: "Arquivado", className: "bg-zinc-500/10 text-zinc-500 border-zinc-500/20" },
 };
@@ -80,7 +89,9 @@ function MyOccurrences() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-display font-bold">Minhas Ocorrências</h1>
-          <p className="text-sm text-muted-foreground">Gerencie o estado e visibilidade das suas publicações.</p>
+          <p className="text-sm text-muted-foreground">
+            Gerencie o estado e visibilidade das suas publicações.
+          </p>
         </div>
         <Button asChild className="rounded-xl shadow-md">
           <Link to="/publicar">
@@ -125,8 +136,8 @@ function MyOccurrences() {
               {loading ? (
                 <tr>
                   <td colSpan={5} className="px-4 py-12 text-center text-muted-foreground">
-                    <RefreshCw className="h-5 w-5 animate-spin mx-auto mb-2 text-primary" />
-                    A carregar as suas ocorrências...
+                    <RefreshCw className="h-5 w-5 animate-spin mx-auto mb-2 text-primary" />A
+                    carregar as suas ocorrências...
                   </td>
                 </tr>
               ) : (
@@ -142,7 +153,11 @@ function MyOccurrences() {
                     <tr key={o.id} className="hover:bg-muted/30 transition-colors">
                       <td className="px-4 py-3.5">
                         <div className="flex items-center gap-3">
-                          <img src={imageSrc} alt="" className="h-11 w-11 rounded-xl object-cover border border-border" />
+                          <img
+                            src={imageSrc}
+                            alt=""
+                            className="h-11 w-11 rounded-xl object-cover border border-border"
+                          />
                           <div>
                             <p className="font-semibold text-foreground line-clamp-1">{o.title}</p>
                             <p className="text-xs text-muted-foreground">
@@ -188,7 +203,12 @@ function MyOccurrences() {
                             </Button>
                           )}
 
-                          <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-lg">
+                          <Button
+                            asChild
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 rounded-lg"
+                          >
                             <Link to="/ocorrencia/$id" params={{ id: o.id }}>
                               <Eye className="h-4 w-4" />
                             </Link>
