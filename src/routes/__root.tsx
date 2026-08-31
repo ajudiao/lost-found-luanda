@@ -150,7 +150,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         {!hideChrome && <Navbar />}
-        <div className={!hideChrome ? "pt-16 sm:pt-20 min-h-screen flex flex-col justify-between" : ""}>
+        <div
+          className={!hideChrome ? "pt-16 sm:pt-20 min-h-screen flex flex-col justify-between" : ""}
+        >
           <div className="flex-1">
             <Outlet />
           </div>

@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, User, Shield, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { MapPin, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,8 +18,8 @@ function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [showPw, setShowPw] = useState(false);
-  const [email, setEmail] = useState("usuario@achadosluanda.ao");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (loginEmail: string, loginPw: string) => {
@@ -37,11 +37,6 @@ function Login() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const loginAsDemo = (role: "utilizador" | "admin") => {
-    const demoEmail = role === "admin" ? "admin@achadosluanda.ao" : "usuario@achadosluanda.ao";
-    handleLogin(demoEmail, "123456");
   };
 
   return (
@@ -121,44 +116,6 @@ function Login() {
               <Link to="/criar-conta">Criar Conta</Link>
             </Button>
           </form>
-
-          <div className="mt-8 rounded-2xl border border-border bg-muted/40 p-5">
-            <p className="text-sm font-semibold">Contas de Demonstração</p>
-            <p className="text-xs text-muted-foreground">Explore a plataforma com um clique.</p>
-            <div className="mt-4 grid gap-3">
-              <div className="rounded-xl border border-border bg-background p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <User className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold">Utilizador</span>
-                </div>
-                <p className="text-xs text-muted-foreground">usuario@achadosluanda.ao · 123456</p>
-                <Button
-                  onClick={() => loginAsDemo("utilizador")}
-                  disabled={loading}
-                  size="sm"
-                  className="mt-3 w-full"
-                >
-                  Entrar como Utilizador
-                </Button>
-              </div>
-              <div className="rounded-xl border border-border bg-background p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Shield className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold">Administrador</span>
-                </div>
-                <p className="text-xs text-muted-foreground">admin@achadosluanda.ao · 123456</p>
-                <Button
-                  onClick={() => loginAsDemo("admin")}
-                  disabled={loading}
-                  size="sm"
-                  variant="secondary"
-                  className="mt-3 w-full"
-                >
-                  Entrar como Administrador
-                </Button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </main>
